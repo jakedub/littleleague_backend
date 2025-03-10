@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.urls import path, include
-from league.views import homepage
+from league.views import homepage  # Import homepage view from league
 
 urlpatterns = [
     path('admin/', admin.site.urls),

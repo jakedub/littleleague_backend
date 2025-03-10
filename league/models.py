@@ -8,10 +8,12 @@ class Team(models.Model):
         return self.name
 
 class Player(models.Model):
-    team = models.ForeignKey(Team, related_name='players', on_delete=models.CASCADE)
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
-    position = models.CharField(max_length=50)
+    street_address = models.CharField(max_length=255)
+    city = models.CharField(max_length=100)
+    state = models.CharField(max_length=100)
+    postal_code = models.CharField(max_length=20)
 
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
