@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+</head>
+<body>
+    <h1>Welcome to the Little League Application!</h1>
+    <p>Use the Geocode API to get coordinates from an address.</p>
+    <form action="{% url 'geocode' %}" method="get">
+        <label for="address">Enter an Address:</label>
+        <input type="text" id="address" name="address" required>
+        <button type="submit">Get Geocode</button>
+    </form>
+</body>
+</html>
