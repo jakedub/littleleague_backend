@@ -16,9 +16,15 @@ window.onload = function() {
     }
 
     // Initialize the map
+    const platform = new H.service.Platform({
+        'apikey': '3i6_xUsn7eU66y5VdaXzha5qwP_lFolNDSH9NUuPerc'
+    });
+
+    const defaultLayers = platform.createDefaultLayers();
+    
     const map = new H.Map(
         document.getElementById('map'),
-        platform.createDefaultLayers().vector.normal.map,
+        defaultLayers.vector.normal.map,
         {
             zoom: 10,
             center: { lat: parseFloat(document.getElementById('latitude').value), lng: parseFloat(document.getElementById('longitude').value) }
@@ -27,18 +33,22 @@ window.onload = function() {
 
     // Add markers
     coordinates.forEach(function(coord) {
-        console.log("Adding marker at: ", coord);
+
         const marker = new H.map.Marker({ lat: coord[0], lng: coord[1] });
         map.addObject(marker);
     });
 
     // Add polygons
     polygons.forEach(function(polygonCoords) {
-        console.log("Adding polygon with coordinates: ", polygonCoords);
+        
         const latLngs = polygonCoords.map(function(coord) {
             return { lat: coord[0], lng: coord[1] };
         });
         const polygon = new H.map.Polygon(latLngs);
         map.addObject(polygon);
     });
+
+    // Enable the map's UI (zoom and pan controls)
+    const ui = H.ui.UI.createDefault(map, defaultLayers);
+    const behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(map));
 };

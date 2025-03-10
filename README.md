@@ -1,7 +1,10 @@
 How to run Python App
-python manage.py runserver
+source venv/bin/activate
+source venv/bin/activate
 
 How to run Angular
+ng build
+ng serve
 
 
 /littleleague_backend    # Python/Django backend
@@ -23,7 +26,7 @@ folium                        0.19.5
 geographiclib                 2.0
 geopandas                     1.0.1
 geopy                         2.4.1
-idna                          3.10
+idna                          3.10s
 Jinja2                        3.1.6
 MarkupSafe                    3.0.2
 numpy                         2.0.2
@@ -55,3 +58,7 @@ xyzservices                   2025.1.0
 6. Display coordinates
 7. Display KML data
 8. Compare coordinates against KML
+
+Here Maps
+App Id: ie6q3d86kTue7uKZ8dXH
+API Key: 3i6_xUsn7eU66y5VdaXzha5qwP_lFolNDSH9NUuPerc
