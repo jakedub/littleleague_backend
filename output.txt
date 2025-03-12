@@ -1,0 +1,8 @@
+Geocoding failed for the following addresses:
+1203 Racquetclub North Dr B, Indianapolis, Indiana, 46260
+7345-C Merganser Dr., Indianapolis, Indiana, 46260
+6679 Taraval Dr, Indianapolis, Indiana, 46260
+2215 Fescue Pl Apt I, Indianapolis, Indiana, 46260
+2940 N Delaware St, Indpls, Indiana, 46205
+1643 hunting horn cir, indianapolis, Indiana, 46260
+5134 Mchenry Ln, Indianapolis, Indiana, 46228

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Player Addresses</title>
+</head>
+<body>
+    <h1>Player Addresses</h1>
+    <table>
+        <thead>
+            <th>First Last</th>
+            <th>Street</th>
+            <th>City</th>
+            <th>State</th>
+            <th>Postal Code</th>
+            <th>latitude</th>
+            <th>longitude</th>
+        </thead>
+        <tbody>
+            {% for player in players %}
+                <tr>
+                    <td>{{ player.first_name }} {{ player.last_name }}</td>
+                    <td>{{ player.street_address }} </td>
+                    <td>   {{ player.city }}</td>
+                    <td> {{ player.state }}</td>
+                    <td>{{ player.postal_code }} </td>
+                    <td>{{player.latitude}}</td>
+                    <td> {{player.longitude}}</td>
+                </tr>
+            {% endfor %}
+
+        </tbody>
+    </table>
+</body>
+</html>
