@@ -9,4 +9,4 @@ class TeamSerializer(serializers.ModelSerializer):
 class PlayerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Player
-        fields = ['id', 'team', 'first_name', 'last_name', 'position']
+        fields = ['first_name', 'last_name', 'street_address', 'city', 'state', 'postal_code', 'latitude', 'longitude']

@@ -1,11 +1,25 @@
 How to run Python App
 source venv/bin/activate
-source venv/bin/activate
+
+python manage.py runserver
 
 How to run Angular
 ng build
 ng serve
 
+
+How to run Python script
+Start in virtual environment: source venv/bin/activate
+Load up shell: python manage.py shell
+from league.import_enrollment_data import import_enrollment_data
+import_enrollment_data()
+
+
+# How to delete data from Python
+from league.models import Player
+
+# Delete all Player records
+Player.objects.all().delete()
 
 /littleleague_backend    # Python/Django backend
 /league                  # Django app inside backend

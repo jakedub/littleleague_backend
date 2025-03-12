@@ -126,3 +126,13 @@ def home(request):
         'coordinates_json': coordinates_json,
         'polygons_json': polygons_json,
     })
+
+class PlayerListView(APIView):
+    def get(self, request, *args, **kwargs):
+        players = Player.objects.all()  # You can apply filters if needed
+        serializer = PlayerSerializer(players, many=True)
+        return Response(serializer.data)
+    
+def player_addresses(request):
+    players = Player.objects.all()  # Fetch all players
+    return render(request, 'player_addresses.html', {'players': players})
