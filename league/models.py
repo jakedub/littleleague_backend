@@ -17,6 +17,7 @@ class Player(models.Model):
     team = models.ForeignKey(Team, on_delete=models.CASCADE, null=True, blank=True)  # Nullable field
     latitude = models.FloatField(null=True, blank=True)  # Add latitude field
     longitude = models.FloatField(null=True, blank=True)
+    district = models.BooleanField(default=False)
     
     def __str__(self):
         return f"{self.first_name} {self.last_name}"

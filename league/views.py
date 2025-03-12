@@ -14,6 +14,7 @@ from .serializers import TeamSerializer, PlayerSerializer
 from django.core.exceptions import ValidationError
 import geopandas as gpd
 from rest_framework import viewsets
+from shapely.geometry import Point, Polygon
 
 # ViewSets for API (if needed in the future)
 class TeamViewSet(viewsets.ModelViewSet):
@@ -24,6 +25,19 @@ class PlayerViewSet(viewsets.ModelViewSet):
     queryset = Player.objects.all()
     serializer_class = PlayerSerializer
 
+
+def check_player_in_district(player, polygons):
+    # Get player's coordinates (assumed already available)
+    player_point = Point(player.longitude, player.latitude)  # Replace with actual coordinates
+    for polygon_coords in polygons:
+        polygon = Polygon(polygon_coords)
+        if polygon.contains(player_point):
+            player.district = True  # Player is within district
+            player.save()
+            return
+    player.district = False  # Player is outside district
+    player.save()
+    
 # Geocode API View
 class GeocodeView(APIView):  # type: ignore
     def get(self, request, *args, **kwargs):
