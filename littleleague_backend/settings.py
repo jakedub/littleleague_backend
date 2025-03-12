@@ -32,8 +32,7 @@ MIDDLEWARE = [
 ROOT_URLCONF = 'littleleague_backend.urls'
 
 CORS_ALLOWED_ORIGINS = [
-    'http://localhost:4200',  # Your Angular app's URL (for local development)
-    # Add any other frontend domains you want to allow for cross-origin requests
+    'http://localhost:4200',
 ]
 TEMPLATES = [
     {

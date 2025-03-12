@@ -74,11 +74,11 @@ class KMLCoordinatesView(APIView):
         # Path to your KML file
         kml_path = os.path.join(settings.BASE_DIR, 'static', 'District8.kml')
         
-        # Parse KML and get coordinates
-        coordinates, _ = parse_kml(kml_path)
+        # Parse KML and get coordinates and polygons
+        coordinates, polygons = parse_kml(kml_path)
 
-        # Return the coordinates as JSON
-        return Response({'coordinates': coordinates})
+        # Return the coordinates and polygons as JSON
+        return Response({'coordinates': coordinates, 'polygons': polygons})
 
 # Upload CSV view to handle the CSV file upload
 class UploadCSVView(APIView):
