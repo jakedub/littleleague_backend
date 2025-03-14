@@ -1,6 +1,8 @@
 How to run Python App
 source venv/bin/activate
 
+Windows: venv\Scripts\activate.
+
 python manage.py runserver
 
 How to run Angular
@@ -40,7 +42,7 @@ folium                        0.19.5
 geographiclib                 2.0
 geopandas                     1.0.1
 geopy                         2.4.1
-idna                          3.10s
+idna                          3.10
 Jinja2                        3.1.6
 MarkupSafe                    3.0.2
 numpy                         2.0.2
@@ -62,6 +64,7 @@ tzdata                        2025.1
 urllib3                       2.3.0
 watchdog                      6.0.0
 xyzservices                   2025.1.0
+
 
 
 1. CSV upload
