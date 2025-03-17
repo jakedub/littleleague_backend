@@ -9,8 +9,8 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.parsers import MultiPartParser, FormParser
 from django.conf import settings
-from .models import Player, Team
-from .serializers import TeamSerializer, PlayerSerializer
+from .models import Player, Team, Evaluation
+from .serializers import TeamSerializer, PlayerSerializer, EvaluationSerializer
 from django.core.exceptions import ValidationError
 import geopandas as gpd
 from rest_framework import viewsets
@@ -150,3 +150,17 @@ class PlayerListView(APIView):
 def player_addresses(request):
     players = Player.objects.all()  # Fetch all players
     return render(request, 'player_addresses.html', {'players': players})
+
+
+class EvaluationListView(APIView):
+    def get(self, request, *args, **kwargs):
+        evaluations = Evaluation.objects.all()
+        serializer = EvaluationSerializer(evaluations, many=True)
+        return Response(serializer.data)
+    
+    def post(self, request, *args, **kwargs):
+        serializer = EvaluationSerializer(data=request.data)
+        if serializer.is_valid():
+            evaluation = serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

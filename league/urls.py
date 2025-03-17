@@ -1,6 +1,6 @@
 from django.urls import path
 from rest_framework.routers import DefaultRouter
-from .views import GeocodeView, UploadCSVView, KMLCoordinatesView, PlayerListView  # Correct view imports
+from .views import GeocodeView, UploadCSVView, KMLCoordinatesView, PlayerListView, EvaluationListView  # Correct view imports
 
 # Initialize the default router for API views (optional)
 router = DefaultRouter()
@@ -12,4 +12,5 @@ urlpatterns += [
     path('upload-csv/', UploadCSVView.as_view(), name='upload_csv'),  # Correctly referenced view
     path('kml-coordinates/', KMLCoordinatesView.as_view(), name='kml_coordinates'),  # Example for KML coordinates
     path('players/', PlayerListView.as_view(), name='player-list'),
+    path('evaluations/', EvaluationListView.as_view(), name='evluation')
 ]

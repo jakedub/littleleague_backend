@@ -13,7 +13,7 @@ class Command(BaseCommand):
     help = 'Updates players with district information'
     
     def import_enrollment_data(self):
-        from ...models import Player, Team 
+        from ...models import Player, Division  # Updated import to Division
         csv_file_path = os.path.join('static', 'Enrollment Address.csv')
         if not os.path.exists(csv_file_path):
             print(f"File not found: {csv_file_path}")
@@ -55,8 +55,8 @@ class Command(BaseCommand):
                     break  
 
             if location:
-                team_name = row['Division Name'] 
-                team, created = Team.objects.get_or_create(name=team_name, city=row['City'])  
+                division_name = row['Division Name']  # Updated to Division instead of Team
+                division, created = Division.objects.get_or_create(name=division_name, city=row['City'])  
                 player = Player(
                     first_name=row['Player First Name'],
                     last_name=row['Player Last Name'],
@@ -64,7 +64,7 @@ class Command(BaseCommand):
                     city=city,
                     state=state,
                     postal_code=postal_code,
-                    team=team,
+                    division=division,  # Updated to use division
                     latitude=location.latitude,
                     longitude=location.longitude,
                     district=True  # Explicitly set district to True when geocoding is successful
@@ -73,8 +73,8 @@ class Command(BaseCommand):
                 print(f"Player {player.first_name} {player.last_name} saved.")
             else:
                 # If geocoding failed, set latitude and longitude to None
-                team_name = row['Division Name']  # Assuming team information exists in the CSV
-                team, created = Team.objects.get_or_create(name=row['Division Name'], city=row['City'])  # Adjust as necessary
+                division_name = row['Division Name']  # Assuming division information exists in the CSV
+                division, created = Division.objects.get_or_create(name=row['Division Name'], city=row['City'])  # Adjust as necessary
 
                 # Create and save the Player with lat/lon=None and district=False
                 player = Player(
@@ -84,7 +84,7 @@ class Command(BaseCommand):
                     city=city,
                     state=state,
                     postal_code=postal_code,
-                    team=team,  
+                    division=division,  # Updated to use division
                     latitude=None,
                     longitude=None,
                     district=False  # Explicitly set district to False when geocoding fails
