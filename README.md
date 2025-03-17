@@ -1,3 +1,9 @@
+superuser
+Username (leave blank to use 'jacob.moore'): 
+Email address: jacob.w.moore@gmail.com
+
+Cat
+
 How to run Python App
 source venv/bin/activate
 
@@ -79,3 +85,36 @@ xyzservices                   2025.1.0
 Here Maps
 App Id: ie6q3d86kTue7uKZ8dXH
 API Key: 3i6_xUsn7eU66y5VdaXzha5qwP_lFolNDSH9NUuPerc
+
+
+
+1. Admin completion
+2. Update models: Divisions, Team Names, Evaluation scores
+3. Create evaluation score intake form on frontend
+4. Populate evaluation score intake form with real data - update Google Sheet
+5. Button for CSV upload - KML
+6. Button for CSV upload - Enrollment Data
+7. Button for Geocode
+8. Button for compare
+
+Reference for Budget tracking: https://youtu.be/g9VLt1OcFbg?si=kYrfuZhFO8FD6zst
+Budget Tracking
+Fundraising Tracking
+
+Budget modules:
+- Login and Register
+- Dashboard
+- Income
+- Expense
+
+### Notes:
+Dashboard component
+Expense component
+Income component
+Login component
+
+Fundraising modules:
+- Login
+- Dashboard
+
+
