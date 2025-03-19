@@ -28,6 +28,7 @@ class Player(models.Model):
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
     street_address = models.CharField(max_length=255)
+    city = models.CharField(max_length=100, null=True, blank=True) 
     state = models.CharField(max_length=100)
     postal_code = models.CharField(max_length=20)
     team = models.ForeignKey(Team, on_delete=models.CASCADE, null=True, blank=True)  # Nullable field
@@ -41,18 +42,23 @@ class Player(models.Model):
         return f"{self.first_name} {self.last_name}"
 
 class Evaluation(models.Model):
-    player = models.ForeignKey(Player, on_delete=models.CASCADE, related_name="evaluations")
+    EVALUATION_TYPE_CHOICES = [
+        ('beginning', 'Beginning of Year'),
+        ('end', 'End of Year'),
+    ]
+    
+    player = models.ForeignKey(Player, on_delete=models.CASCADE, related_name='evaluations')
     season_year = models.IntegerField()
-    evaluation_type = models.CharField(max_length=10, choices=[("beginning", "Beginning of Year"), ("end", "End of Year")])
-    hitting_power = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)])
-    hitting_contact = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)])
-    hitting_form = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)])
-    fielding_form = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)])
-    fielding_glove = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)])
-    fielding_hustle = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)])
-    throwing_form = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)])
-    throwing_accuracy = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)])
-    throwing_speed = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)])
-    pitching_speed = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)])
-    pitching_accuracy = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)], null=True)  # Updated to match the others
+    evaluation_type = models.CharField(max_length=10, choices=EVALUATION_TYPE_CHOICES)
+    hitting_power = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)], null=True, blank=True)
+    hitting_contact = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)], null=True, blank=True)
+    hitting_form = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)], null=True, blank=True)
+    fielding_form = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)], null=True, blank=True)
+    fielding_glove = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)], null=True, blank=True)
+    fielding_hustle = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)], null=True, blank=True)
+    throwing_form = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)], null=True, blank=True)
+    throwing_accuracy = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)], null=True, blank=True)
+    throwing_speed = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)], null=True, blank=True)
+    pitching_speed = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)], null=True, blank=True)
+    pitching_accuracy = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)], null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)

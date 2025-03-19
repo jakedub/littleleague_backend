@@ -1,8 +1,12 @@
 Geocoding failed for the following addresses:
-1203 Racquetclub North Dr B, Indianapolis, Indiana, 46260
-7345-C Merganser Dr., Indianapolis, Indiana, 46260
-6679 Taraval Dr, Indianapolis, Indiana, 46260
-2215 Fescue Pl Apt I, Indianapolis, Indiana, 46260
-2940 N Delaware St, Indpls, Indiana, 46205
+2215 Fescue Place Apt B, Indianapolis, Indiana, 46260
+7449 Lippincott Way, Indianpolis, Indiana, 46268
+2051 Egret Ct. Apt. G, Indianapolis, Indiana, 46260
+10058 Cedar Ridge Dr., Carmel, Indiana, 46032
+2909 Ruby Blvd, Indianapolis, Indiana, 46268
+4850 Seville Drive, Indianapolis, Illinois, 46228
+831 Park Central Dr N Apt D, Indianapolis, Indiana, 46260
+831 Park Central Dr N Apt D, Indianapolis, Indiana, 46260
+3549 Woodale Rd, Indianapolis, Indiana, 46234
 1643 hunting horn cir, indianapolis, Indiana, 46260
-5134 Mchenry Ln, Indianapolis, Indiana, 46228
+5342 e 72 nd st, indpls, Indiana, 46250

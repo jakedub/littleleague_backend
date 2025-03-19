@@ -14,23 +14,32 @@ class Command(BaseCommand):
     
     def import_enrollment_data(self):
         from ...models import Player, Division  # Updated import to Division
-        csv_file_path = os.path.join('static', 'Enrollment Address.csv')
+        csv_file_path = os.path.join('static', 'Evaluation_Address.csv')
         if not os.path.exists(csv_file_path):
             print(f"File not found: {csv_file_path}")
             return False
         df = pd.read_csv(csv_file_path)
         geolocator = Nominatim(user_agent="myApp")
         failed_geocoding = []
+        existing_players = []
+        inserted_players_count = 0  # Track inserted players count
 
         max_retries = 3
         retry_delay = 2 
 
         for index, row in df.iterrows():
+            first_name = row['Player First Name']
+            last_name = row['Player Last Name']
+
+            # Check if player already exists
+            if Player.objects.filter(first_name=first_name, last_name=last_name).exists():
+                existing_players.append(f"{first_name} {last_name}")
+                continue
+
             street_address = row['Street Address']
             city = row['City']
             state = row['State']
             postal_code = row['Postal Code']
-
             address = f"{street_address}, {city}, {state}, {postal_code}"
 
             print(f"Attempting to geocode: {address}")
@@ -54,56 +63,50 @@ class Command(BaseCommand):
                     print(f"Unexpected error occurred for {address}: {e}")
                     break  
 
-            if location:
-                division_name = row['Division Name']  # Updated to Division instead of Team
-                division, created = Division.objects.get_or_create(name=division_name, city=row['City'])  
-                player = Player(
-                    first_name=row['Player First Name'],
-                    last_name=row['Player Last Name'],
-                    street_address=street_address,
-                    city=city,
-                    state=state,
-                    postal_code=postal_code,
-                    division=division,  # Updated to use division
-                    latitude=location.latitude,
-                    longitude=location.longitude,
-                    district=True  # Explicitly set district to True when geocoding is successful
-                )
-                player.save()
-                print(f"Player {player.first_name} {player.last_name} saved.")
-            else:
-                # If geocoding failed, set latitude and longitude to None
-                division_name = row['Division Name']  # Assuming division information exists in the CSV
-                division, created = Division.objects.get_or_create(name=row['Division Name'], city=row['City'])  # Adjust as necessary
+            division_name = row['Division Name']
+            division, created = Division.objects.get_or_create(name=division_name)
 
-                # Create and save the Player with lat/lon=None and district=False
-                player = Player(
-                    first_name=row['Player First Name'],
-                    last_name=row['Player Last Name'],
-                    street_address=street_address,
-                    city=city,
-                    state=state,
-                    postal_code=postal_code,
-                    division=division,  # Updated to use division
-                    latitude=None,
-                    longitude=None,
-                    district=False  # Explicitly set district to False when geocoding fails
-                )
-                player.save()
+            player = Player(
+                first_name=first_name,
+                last_name=last_name,
+                street_address=street_address,
+                city=city,
+                state=state,
+                postal_code=postal_code,
+                division=division,
+                latitude=location.latitude if location else None,
+                longitude=location.longitude if location else None,
+                district=True if location else False
+            )
+            player.save()
+            inserted_players_count += 1  # Increment inserted players count
+            print(f"Player {player.first_name} {player.last_name} saved.")
+
+            if not location:
                 failed_geocoding.append(address) 
                 print(f"Geocoding failed for {address} after {max_retries} retries.")
 
-        # After processing all rows, write the failed addresses to an output.txt file
+        # Write failed geocoding addresses to an output file
         if failed_geocoding:
             with open("output.txt", "w") as file:
                 file.write("Geocoding failed for the following addresses:\n")
                 for address in failed_geocoding:
                     file.write(f"{address}\n")
             print("Failed geocoding addresses have been written to output.txt.")
-            return False
-        else:
-            print("All addresses were successfully geocoded.")
-            return True
+
+        # Write existing players to an output file
+        if existing_players:
+            with open("output_exists.txt", "w") as file:
+                file.write("The following players already exist:\n")
+                for player in existing_players:
+                    file.write(f"{player}\n")
+            print("Existing players have been written to output_exists.txt.")
+
+        # Print summary counts
+        print(f"Total players inserted: {inserted_players_count}")
+        print(f"Total players already exist: {len(existing_players)}")
+
+        return not failed_geocoding
 
     def handle(self, *args, **options):
         sleep(5)  # Introduce a time delay before execution
